@@ -15,7 +15,7 @@ public class Ship {
     private int influence, gold;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private int hp, hull, healing, flatDamage, stamina, maxHp, maxStamina,
-                maxWeapon, strength, poison, weakness;
+                maxWeapon, leech, strength, poison, weakness;
     private Lieutenant activeLieutenant;
     private Relic[] activeRelics = {null, null};
     private ArrayList<Weapon> weaponsList = new ArrayList();
@@ -30,6 +30,7 @@ public class Ship {
         this.maxWeapon = 2;
         this.hp = maxHp;
         this.flatDamage = 0;
+        this.leech = 0;
         this.strength = 0;
         this.poison = 0;
         this.weakness = 0;
@@ -75,6 +76,9 @@ public class Ship {
     }
     public Lieutenant getLieutenant(){
         return activeLieutenant;
+    }
+    public int getLeech(){
+        return leech;
     }
     public int getStrength(){
         return strength;
