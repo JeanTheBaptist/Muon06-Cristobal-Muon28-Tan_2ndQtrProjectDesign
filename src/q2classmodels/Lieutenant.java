@@ -13,37 +13,22 @@ import q2classmodels.Exceptions.BrokeException;
  *
  * @author MUON
  */
-public class Lieutenant extends NPC implements Upgradable{
+public class Lieutenant extends NPC, Item {
     private boolean cleanse;
     private Ship ship;
     private int[] actionStats ={0,0,0,0,0}; //damage, healing, poison, weakness strength
-    private int upgradeCost,tier,staminaCost;
-    public Lieutenant(String name, String dialogue, int gold,int damage, int healing, int poison, int weakness, int strength, boolean cleanse, int staminaCost){
-        super(name, dialogue, 10);
+    public Lieutenant(String name, String dialogue, int damage, int healing, int poison, int weakness, int strength, boolean cleanse, int staminaCost){
+        super(name, dialogue, staminaCost);
         actionStats[0] = damage;
         actionStats[1] = healing;
         actionStats[2] = poison;
         actionStats[3] = weakness;
         actionStats[4] = strength;
+        this.cleanse = cleanse;
         
     }
     public void setCaptain(Ship captain){
         this.ship = captain;
-    }
-    public void upgrade() throws BrokeException, AlreadyMaximumException{
-        if (ship.getGold()-(upgradeCost*(1+((ship.getInfluence()+tier)/10)))<0){
-            throw new BrokeException("you dont have enough money for that!");            
-        }
-        if (tier ==3){
-            throw new AlreadyMaximumException("This lieutenant is already maxxed out!");
-        }
-        ship.setGold(ship.getGold()-(upgradeCost*(1+((ship.getInfluence()+tier)/10))));
-        for(int i=0; i<actionStats.length;i++){
-            if(actionStats[i]>0){
-                actionStats[i]++;
-            }
-        }
-        tier+=1;
     }
     public void specialMove(Enemy enemy){
         enemy.setHp(enemy.getHp()-actionStats[0]);
